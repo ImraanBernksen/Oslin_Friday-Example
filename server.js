@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-
+const {message} = require('./app/middleware/message.js');
+const { errorHandling } = require("./app/middleware/ErrorHandling.js");
+  
 const app = express();
 
 var corsOptions = {
@@ -13,7 +15,9 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
+app.use(errorHandling);
+
+app.get("/",message, (req, res) => {
   res.send((`<h2>Welcome Mogamad Imraan Bernksen</h2>`));
 });
 

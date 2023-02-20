@@ -41,11 +41,11 @@ Products.findById = (id, result) => {
   });
 };
 
-Products.getAll = (name, result) => {
+Products.getAll = (car_id, result) => {
   let query = "SELECT * FROM Products";
 
-  if (name) {
-    query += ` WHERE name LIKE '%${name}%'`;
+  if (car_id) {
+    query += ` WHERE name LIKE '%${car_id}%'`;
   }
 
   sql.query(query, (err, res) => {
@@ -61,7 +61,7 @@ Products.getAll = (name, result) => {
 };
 
 Products.getAllPublished = result => {
-  sql.query("SELECT * FROM Products WHERE published=true", (err, res) => {
+  sql.query("SELECT * FROM Products WHERE car_id=true", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -76,7 +76,7 @@ Products.getAllPublished = result => {
 Products.updateById = (id, products, result) => {
   sql.query(
     "UPDATE Products SET name = ?, description = ?, colour = ?, price = ? WHERE car_id = ?",
-    [products.name, products.description, products.colour, products.price, id],
+    [products.car_id, products.name, products.description, products.colour, products.price, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

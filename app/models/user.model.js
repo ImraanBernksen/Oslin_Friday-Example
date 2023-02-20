@@ -1,5 +1,7 @@
 const sql = require("../config/db.config.js");
 
+const { hash, compare, hashSync } = require('bcrypt');
+
 // constructor
 const Users = function(users) {
   this.user_id = users.user_id;
@@ -40,7 +42,7 @@ Users.findById = (id, result) => {
   });
 };
 
-Users.getAll = (fullname, result) => {
+Users.getAll = (user_id, result) => {
   let query = "SELECT * FROM Users";
 
   if (user_id) {
