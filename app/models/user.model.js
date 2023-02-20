@@ -3,9 +3,9 @@ const sql = require("../config/db.config.js");
 // constructor
 const Users = function(users) {
   this.user_id = users.user_id;
-  this.fullname = users.name;
-  this.email = users.description;
-  this.password = users.colour;
+  this.fullname = users.fullname;
+  this.email = users.email;
+  this.password = users.password;
 };
 
 Users.create = (newUsers, result) => {
@@ -43,8 +43,8 @@ Users.findById = (id, result) => {
 Users.getAll = (fullname, result) => {
   let query = "SELECT * FROM Users";
 
-  if (fullname) {
-    query += ` WHERE name LIKE '%${fullname}%'`;
+  if (user_id) {
+    query += ` WHERE name LIKE '%${user_id}%'`;
   }
 
   sql.query(query, (err, res) => {
@@ -60,7 +60,7 @@ Users.getAll = (fullname, result) => {
 };
 
 Users.getAllPublished = result => {
-  sql.query("SELECT * FROM Users WHERE published=true", (err, res) => {
+  sql.query("SELECT * FROM Users WHERE user_id=true", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -75,7 +75,7 @@ Users.getAllPublished = result => {
 Users.updateById = (id, products, result) => {
   sql.query(
     "UPDATE Users SET fullname = ?, email = ?, password = ? WHERE user_id = ?",
-    [users.name, users.description, users.colour, users.price, id],
+    [users.user_id, users.fullname, users.email, users.password, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
